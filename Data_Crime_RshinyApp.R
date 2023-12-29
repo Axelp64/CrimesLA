@@ -2,6 +2,16 @@ source(file = "Global.R")
 source(file = "Packages.R")
 
 
+
+data <- data %>% 
+  mutate(delit = case_when(
+    Crm.Cd %in% c("110","113") ~ "Homicide",
+    Crm.Cd %in% c("121","122","815","820","821") ~ "Viol",
+    Crm.Cd %in% c("210","220") ~ "Braquage",
+    Crm.Cd %in% c("310","320") ~ "Cambriolage",
+  ))
+
+
 ui <- fluidPage(
   
   div(
@@ -10,15 +20,17 @@ ui <- fluidPage(
   ),
   
   tabsetPanel(
-    tabPanel("Onglet 1",
+    tabPanel("All",
              
              
              ),
-    tabPanel("Onglet 2",
+    tabPanel("Vehicle theft",
              
              
              
-             )
+             ),
+    tabPanel("Burglary",
+    )
   )
   
 
