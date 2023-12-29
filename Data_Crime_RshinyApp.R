@@ -3,13 +3,7 @@ source(file = "Packages.R")
 
 
 
-data <- data %>% 
-  mutate(delit = case_when(
-    Crm.Cd %in% c("110","113") ~ "Homicide",
-    Crm.Cd %in% c("121","122","815","820","821") ~ "Viol",
-    Crm.Cd %in% c("210","220") ~ "Braquage",
-    Crm.Cd %in% c("310","320") ~ "Cambriolage",
-  ))
+
 
 
 ui <- fluidPage(
@@ -20,23 +14,222 @@ ui <- fluidPage(
   ),
   
   tabsetPanel(
-    tabPanel("All",
+    tabPanel("Tous",
              
-             
+             sidebarPanel(
+               
+               h3("Filtres"),
+               br(),
+               br(),
+               sliderInput("age", label="Age_Victime",
+                           min=min(data$Vict.Age, na.rm = T),
+                           max=max(data$Vict.Age, na.rm = T),
+                           value = c(min(data$Vict.Age, na.rm = T),
+                                     max(data$Vict.Age, na.rm = T))
+                           
+               ),
+               br(),
+               br(),
+               checkboxGroupInput("sexe", label = "Sexe_Victime",
+                                  choices = c("Femme"="F","Homme"="M","Autre"="X"),
+                                  selected = c("F","M","X")
+               ),
+               br(),
+               br(),
+               dateRangeInput("periode", label = "Periode",
+                              start = min(data$Date.Rptd, na.rm = T),
+                              end   = max(data$Date.Rptd, na.rm = T)
+                              
+                              
+               ),
+               br(),
+               br(),
+               checkboxGroupInput("quartier", label = "Quartier",
+                           choices = unique(data$AREA.NAME),
+                           selected = unique(data$AREA.NAME))
+               
+               
+               
              ),
-    tabPanel("Vehicle theft",
+             
+             mainPanel(
+               br(),
+               h3("Visualisations"),
+               
+               
+             )
              
              
-             
+    ),
+    tabPanel("Braquage",
+             sidebarPanel(
+               h3("Filtres"),
+               br(),
+               br(),
+               sliderInput("SliderAge", "Victime_Age",
+                           min=min(data$Vict.Age, na.rm = T),
+                           max=max(data$Vict.Age, na.rm = T),
+                           value = c(min(data$Vict.Age, na.rm = T),
+                                     max(data$Vict.Age, na.rm = T))
+                           
+               ),
+               br(),
+               br(),
+               checkboxGroupInput("sexe", label = "Sexe_Victime",
+                                  choices = c("Femme"="F","Homme"="M","Autre"="X"),
+                                  selected = c("F","M","X")
+               ),
+               br(),
+               br(),
+               dateRangeInput("periode", label = "Periode",
+                              start = min(data$Date.Rptd, na.rm = T),
+                              end   = max(data$Date.Rptd, na.rm = T)
+                              
+                              
+               ),
+               br(),
+               br(),
+               checkboxGroupInput("quartier", label = "Quartier",
+                                  choices = unique(data$AREA.NAME),
+                                  selected = unique(data$AREA.NAME))
+               
              ),
-    tabPanel("Burglary",
+             
+             mainPanel(
+               br(),
+               h3("Visualisations"),
+               
+             )
+             
+             
+             
+    ),
+    tabPanel("Cambriolage",
+             sidebarPanel(
+               h3("Filtres"),
+               br(),
+               br(),
+               sliderInput("SliderAge", "Victime_Age",
+                           min=min(data$Vict.Age, na.rm = T),
+                           max=max(data$Vict.Age, na.rm = T),
+                           value = c(min(data$Vict.Age, na.rm = T),
+                                     max(data$Vict.Age, na.rm = T))
+                           
+               ),
+               br(),
+               br(),
+               checkboxGroupInput("sexe", label = "Sexe_Victime",
+                                  choices = c("Femme"="F","Homme"="M","Autre"="X"),
+                                  selected = c("F","M","X")
+               ),
+               br(),
+               br(),
+               dateRangeInput("periode", label = "Periode",
+                              start = min(data$Date.Rptd, na.rm = T),
+                              end   = max(data$Date.Rptd, na.rm = T)
+                              
+                              
+               ),
+               br(),
+               br(),
+               checkboxGroupInput("quartier", label = "Quartier",
+                                  choices = unique(data$AREA.NAME),
+                                  selected = unique(data$AREA.NAME))
+               
+             ),
+             
+             mainPanel(
+               br(),
+               h3("Visualisations"),
+               
+             )
+    ),
+    tabPanel("Homicide",
+             sidebarPanel(
+               h3("Filtres"),
+               br(),
+               br(),
+               sliderInput("SliderAge", "Victime_Age",
+                           min=min(data$Vict.Age, na.rm = T),
+                           max=max(data$Vict.Age, na.rm = T),
+                           value = c(min(data$Vict.Age, na.rm = T),
+                                     max(data$Vict.Age, na.rm = T))
+                           
+               ),
+               br(),
+               br(),
+               checkboxGroupInput("sexe", label = "Sexe_Victime",
+                                  choices = c("Femme"="F","Homme"="M","Autre"="X"),
+                                  selected = c("F","M","X")
+               ),
+               br(),
+               br(),
+               dateRangeInput("periode", label = "Periode",
+                              start = min(data$Date.Rptd, na.rm = T),
+                              end   = max(data$Date.Rptd, na.rm = T)
+                              
+                              
+               ),
+               br(),
+               br(),
+               checkboxGroupInput("quartier", label = "Quartier",
+                                  choices = unique(data$AREA.NAME),
+                                  selected = unique(data$AREA.NAME))
+               
+             ),
+             
+             mainPanel(
+               br(),
+               h3("Visualisations"),
+               
+             )
+    ),
+    tabPanel("Viol",
+             sidebarPanel(
+               h3("Filtres"),
+               br(),
+               br(),
+               sliderInput("SliderAge", "Victime_Age",
+                           min=min(data$Vict.Age, na.rm = T),
+                           max=max(data$Vict.Age, na.rm = T),
+                           value = c(min(data$Vict.Age, na.rm = T),
+                                     max(data$Vict.Age, na.rm = T))
+                           
+               ),
+               br(),
+               br(),
+               checkboxGroupInput("sexe", label = "Sexe_Victime",
+                                  choices = c("Femme"="F","Homme"="M","Autre"="X"),
+                                  selected = c("F","M","X")
+               ),
+               br(),
+               br(),
+               dateRangeInput("periode", label = "Periode",
+                              start = min(data$Date.Rptd, na.rm = T),
+                              end   = max(data$Date.Rptd, na.rm = T)
+                              
+                              
+               ),
+               br(),
+               br(),
+               checkboxGroupInput("quartier", label = "Quartier",
+                                  choices = unique(data$AREA.NAME),
+                                  selected = unique(data$AREA.NAME))
+               
+             ),
+             
+             mainPanel(
+               br(),
+               h3("Visualisations"),
+               
+             )
     )
   )
   
-
   
   
-
+  
+  
   
   
   
@@ -46,6 +239,7 @@ ui <- fluidPage(
   
   
 )
+
 
 server <- function(input, output){
   
