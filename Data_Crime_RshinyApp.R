@@ -21,7 +21,7 @@ ui <- fluidPage(
                h3("Filtres"),
                br(),
                br(),
-               sliderInput("age_all", label="Age_Victime",
+               sliderInput("age_all", label="Age de la victime :",
                            min=min(data$Vict.Age, na.rm = T),
                            max=max(data$Vict.Age, na.rm = T),
                            value = c(min(data$Vict.Age, na.rm = T),
@@ -30,13 +30,13 @@ ui <- fluidPage(
                ),
                br(),
                br(),
-               checkboxGroupInput("sexe_all", label = "Sexe Victime",
+               checkboxGroupInput("sexe_all", label = "Sexe de la victime : ",
                                   choices = c("Femme"="F","Homme"="M","Autre"="X"),
                                   selected = c("F","M","X")
                ),
                br(),
                br(),
-               dateRangeInput("periode_all", label = "Periode",
+               dateRangeInput("periode_all", label = "Selectionnez la periode : ",
                               start = min(data$Date.Rptd, na.rm = T),
                               end   = max(data$Date.Rptd, na.rm = T)
                               
@@ -44,7 +44,7 @@ ui <- fluidPage(
                ),
                br(),
                br(),
-               checkboxGroupInput("quartier_all", label = "Quartier",
+               checkboxGroupInput("quartier_all", label = "Selectionnez les quartiers : ",
                                   choices = unique(data$AREA.NAME),
                                   selected = unique(data$AREA.NAME))
                
