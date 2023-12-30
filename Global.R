@@ -1,6 +1,8 @@
 data <- read.csv("DATA/Crime_Data_from_2020_to_Present_20231110.csv")
 source(file = "Packages.R")
 
+## reformatage de la date au format yyyy-mm-dd
+data$Date.Rptd <- as.Date(data$Date.Rptd, format = "%m/%d/%Y %I:%M:%S %p")
 
 data <- data %>% 
   mutate(delit = case_when(
