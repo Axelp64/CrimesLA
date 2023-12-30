@@ -30,7 +30,7 @@ ui <- fluidPage(
                ),
                br(),
                br(),
-               checkboxGroupInput("sexe_all", label = "Sexe_Victime",
+               checkboxGroupInput("sexe_all", label = "Sexe Victime",
                                   choices = c("Femme"="F","Homme"="M","Autre"="X"),
                                   selected = c("F","M","X")
                ),
