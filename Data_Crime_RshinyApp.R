@@ -63,7 +63,8 @@ ui <- fluidPage(
                    status = "info",
                    h4(strong(textOutput("kpi_all_value")))
                    
-               )
+               ),
+               plotOutput("evo_all_delits")
                
                
              )
@@ -275,6 +276,19 @@ server <- function(input, output){
     nb_delits <- nrow(filtered_data_all())
     paste(nb_delits)
     })
+  
+  ## Evolution courbe 
+
+  
+  output$evo_all_delits <- renderPlot({
+    ggplot(filtered_data_all(), aes(x = Date.Rptd)) +
+      geom_line(stat = "count", aes(group = 1), color = "blue") +
+      labs(title = "Evolution trimestrielle des delits",
+           x = "Trimestre",
+           y = "Nombre de delits") +
+      scale_x_date(date_labels = "%b %Y", date_breaks = "3 months") +  # Formater l'axe des x pour afficher les trimestres
+      theme_minimal()
+  })
 }
 
 shinyApp(ui=ui , server=server)

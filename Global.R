@@ -3,6 +3,8 @@ source(file = "Packages.R")
 
 ## reformatage de la date au format yyyy-mm-dd
 data$Date.Rptd <- as.Date(data$Date.Rptd, format = "%m/%d/%Y %I:%M:%S %p")
+data$Date.Rptd <- as.Date(data$Date.Rptd)
+class(data$Date.Rptd)
 
 data <- data %>% 
   mutate(delit = case_when(
@@ -20,4 +22,6 @@ data <- mutate(data, Vict.Sex = ifelse(Vict.Sex == "H", "M", Vict.Sex))
 
 table(data$Vict.Sex)
 
-min(data$Vict.Age[data$delit== "Homicide"])
+
+
+
