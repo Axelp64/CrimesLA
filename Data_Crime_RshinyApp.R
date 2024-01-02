@@ -125,7 +125,7 @@ ui <- fluidPage(
                    ),
                    column(width = 5,
                           br(),
-                          box(title = tags$h4("Nombre de delits :"),
+                          box(title = tags$h4("Nombre de braquages :"),
                               width = 20,
                               height = 100,
                               solidHeader = T,
@@ -147,13 +147,13 @@ ui <- fluidPage(
                    column(width = 6,
                           br(),
                           div(
-                            h4(em("Evolution du nombre de delits"), align = "center")),
+                            h4(em("Evolution du nombre de bracages"), align = "center")),
                           plotOutput("evo_braquage_delits")
                    ),
                    column(width = 6,
                           br(),
                           div(
-                            h4(em("Localisation des delits"), align = "center")),
+                            h4(em("Localisation des braquages"), align = "center")),
                           leafletOutput("heatmap_braquage")      
                    ),
                    # Ligne Info
@@ -174,19 +174,169 @@ ui <- fluidPage(
         
         # troisieme onglet 
         
-        tabPanel("Cambriolages"
+        tabPanel("Cambriolages",
+                 fluidRow(
+                   #Ligne KPI
+                   column(width = 2
+                   ),
+                   column(width = 5,
+                          br(),
+                          box(title = tags$h4("Nombre de cambriolages :"),
+                              width = 20,
+                              height = 100,
+                              solidHeader = T,
+                              status = "info",
+                              h4(strong(textOutput("kpi_cambri_value"))))
+                   ),
+                   column(width = 5,
+                          br(),
+                          box(
+                            title = tags$h4("Moyenne d'age des victimes :"),
+                            width = 20,
+                            height = 100,
+                            solidHeader = TRUE,
+                            status = "info",
+                            h4(strong(textOutput("kpi_age_cambri_value")))
+                          )
+                   ),
+                   #Ligne Graphiques
+                   column(width = 6,
+                          br(),
+                          div(
+                            h4(em("Evolution du nombre de cambriolages"), align = "center")),
+                          plotOutput("evo_cambri_delits")
+                   ),
+                   column(width = 6,
+                          br(),
+                          div(
+                            h4(em("Localisation des cambriolages"), align = "center")),
+                          leafletOutput("heatmap_cambri")      
+                   ),
+                   # Ligne Info
+                   
+                   column(width = 12,
+                          
+                          br(),
+                          div(
+                            p("Pour avoir acces au jeu de donnees complet, suivez le lien suivant :", 
+                              a(href="https://data.lacity.org/Public-Safety/Crime-Data-from-2020-to-Present/2nrs-mtv8", "DataSet")), align = "center"),
+                          div(
+                            p(em("Application web concue par "), em(strong("Penacq Axel"))), align = "center")
+                   )
+                   
+                 )
                  
         ),
         
         # Quatrieme onglet 
         
-        tabPanel("Homicides"
+        tabPanel("Homicides",
+                 fluidRow(
+                   #Ligne KPI
+                   column(width = 2
+                   ),
+                   column(width = 5,
+                          br(),
+                          box(title = tags$h4("Nombre d'homicides :"),
+                              width = 20,
+                              height = 100,
+                              solidHeader = T,
+                              status = "info",
+                              h4(strong(textOutput("kpi_homi_value"))))
+                   ),
+                   column(width = 5,
+                          br(),
+                          box(
+                            title = tags$h4("Moyenne d'age des victimes :"),
+                            width = 20,
+                            height = 100,
+                            solidHeader = TRUE,
+                            status = "info",
+                            h4(strong(textOutput("kpi_age_homi_value")))
+                          )
+                   ),
+                   #Ligne Graphiques
+                   column(width = 6,
+                          br(),
+                          div(
+                            h4(em("Evolution du nombre d'e delits'homicides"), align = "center")),
+                          plotOutput("evo_homi_delits")
+                   ),
+                   column(width = 6,
+                          br(),
+                          div(
+                            h4(em("Localisation des homicides"), align = "center")),
+                          leafletOutput("heatmap_homi")      
+                   ),
+                   # Ligne Info
+                   
+                   column(width = 12,
+                          
+                          br(),
+                          div(
+                            p("Pour avoir acces au jeu de donnees complet, suivez le lien suivant :", 
+                              a(href="https://data.lacity.org/Public-Safety/Crime-Data-from-2020-to-Present/2nrs-mtv8", "DataSet")), align = "center"),
+                          div(
+                            p(em("Application web concue par "), em(strong("Penacq Axel"))), align = "center")
+                   )
+                   
+                 )
                  
         ),
         
         # Dernier onglet 
         
-        tabPanel("Viols"
+        tabPanel("Viols",
+                 fluidRow(
+                   #Ligne KPI
+                   column(width = 2
+                   ),
+                   column(width = 5,
+                          br(),
+                          box(title = tags$h4("Nombre de viols :"),
+                              width = 20,
+                              height = 100,
+                              solidHeader = T,
+                              status = "info",
+                              h4(strong(textOutput("kpi_viol_value"))))
+                   ),
+                   column(width = 5,
+                          br(),
+                          box(
+                            title = tags$h4("Moyenne d'age des victimes :"),
+                            width = 20,
+                            height = 100,
+                            solidHeader = TRUE,
+                            status = "info",
+                            h4(strong(textOutput("kpi_age_viol_value")))
+                          )
+                   ),
+                   #Ligne Graphiques
+                   column(width = 6,
+                          br(),
+                          div(
+                            h4(em("Evolution du nombre de viols"), align = "center")),
+                          plotOutput("evo_viol_delits")
+                   ),
+                   column(width = 6,
+                          br(),
+                          div(
+                            h4(em("Localisation des viols"), align = "center")),
+                          leafletOutput("heatmap_viol")      
+                   ),
+                   # Ligne Info
+                   
+                   column(width = 12,
+                          
+                          br(),
+                          div(
+                            p("Pour avoir acces au jeu de donnees complet, suivez le lien suivant :", 
+                              a(href="https://data.lacity.org/Public-Safety/Crime-Data-from-2020-to-Present/2nrs-mtv8", "DataSet")), align = "center"),
+                          div(
+                            p(em("Application web concue par "), em(strong("Penacq Axel"))), align = "center")
+                   )
+                   
+                 )
                  
         )
         
@@ -337,7 +487,180 @@ server <- function(input, output){
       )    %>%
       setView(lat = center_lat_b(), lng = center_lon_b(), zoom = 9)
   })
+
   
+  
+  
+  ## Cambriolages
+  
+  #Filtrage des donnees
+  
+  filtered_data_cambri <- reactive ({data %>% 
+      filter(data$delit == "Cambriolage",
+             Vict.Age >= min(input$age_filter) & Vict.Age <= max(input$age_filter),
+             Vict.Sex %in% input$sexe_filter,
+             Date.Rptd >= input$periode_filter[1] & Date.Rptd <= input$periode_filter[2],
+             AREA.NAME %in% input$quartier_filter)
+  })
+  ## KPIs
+  
+  output$kpi_cambri_value <- renderText({
+    nb_delits <- nrow(filtered_data_cambri())
+    paste( nb_delits, " actes")
+  })
+  
+  output$kpi_age_cambri_value <- renderText({
+    mean_age <- mean(filtered_data_cambri()$Vict.Age, na.rm = TRUE)
+    paste(round(mean_age, 1), " ans")
+  })
+  
+  ## Evolution courbe 
+  
+  
+  output$evo_cambri_delits <- renderPlot({
+    ggplot(filtered_data_cambri(), aes(x = Date.Rptd)) +
+      geom_histogram(binwidth = 30, fill = "grey", color = "black", alpha = 0.7) +
+      labs(x = "Date",
+           y = "Nombre de delits") +
+      scale_x_date(date_labels = "%b %Y", date_breaks = "3 months") +
+      theme_minimal() +
+      theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  })
+  
+  ## Heatmap
+  
+  center_lat_c <- reactive({median(filtered_data_cambri()$LAT)})
+  center_lon_c <- reactive({median(filtered_data_cambri()$LON)})
+  
+  output$heatmap_cambri <- renderLeaflet({
+    leaflet(data = filtered_data_cambri()) %>%
+      addTiles()%>% 
+      addTiles() %>%
+      addHeatmap(
+        lat = ~LAT,
+        lng = ~LON,
+        blur = 20,
+        max = 0.2,
+        radius = 10
+      )    %>%
+      setView(lat = center_lat_c(), lng = center_lon_c(), zoom = 9)
+  })
+  
+  
+  
+  
+  ## Homicides
+  
+  #Filtrage des donnees
+  
+  filtered_data_homi <- reactive ({data %>% 
+      filter(data$delit == "Homicide",
+             Vict.Age >= min(input$age_filter) & Vict.Age <= max(input$age_filter),
+             Vict.Sex %in% input$sexe_filter,
+             Date.Rptd >= input$periode_filter[1] & Date.Rptd <= input$periode_filter[2],
+             AREA.NAME %in% input$quartier_filter)
+  })
+  ## KPIs
+  
+  output$kpi_homi_value <- renderText({
+    nb_delits <- nrow(filtered_data_homi())
+    paste( nb_delits, " actes")
+  })
+  
+  output$kpi_age_homi_value <- renderText({
+    mean_age <- mean(filtered_data_homi()$Vict.Age, na.rm = TRUE)
+    paste(round(mean_age, 1), " ans")
+  })
+  
+  ## Evolution courbe 
+  
+  
+  output$evo_homi_delits <- renderPlot({
+    ggplot(filtered_data_homi(), aes(x = Date.Rptd)) +
+      geom_histogram(binwidth = 30, fill = "grey", color = "black", alpha = 0.7) +
+      labs(x = "Date",
+           y = "Nombre de delits") +
+      scale_x_date(date_labels = "%b %Y", date_breaks = "3 months") +
+      theme_minimal() +
+      theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  })
+  
+  ## Heatmap
+  
+  center_lat_h <- reactive({median(filtered_data_homi()$LAT)})
+  center_lon_h <- reactive({median(filtered_data_homi()$LON)})
+  
+  output$heatmap_homi <- renderLeaflet({
+    leaflet(data = filtered_data_homi()) %>%
+      addTiles()%>% 
+      addTiles() %>%
+      addHeatmap(
+        lat = ~LAT,
+        lng = ~LON,
+        blur = 20,
+        max = 0.2,
+        radius = 10
+      )    %>%
+      setView(lat = center_lat_h(), lng = center_lon_h(), zoom = 9)
+  })
+  
+  
+  
+  ## Viols
+  
+  #Filtrage des donnees
+  
+  filtered_data_viol <- reactive ({data %>% 
+      filter(data$delit == "Viol",
+             Vict.Age >= min(input$age_filter) & Vict.Age <= max(input$age_filter),
+             Vict.Sex %in% input$sexe_filter,
+             Date.Rptd >= input$periode_filter[1] & Date.Rptd <= input$periode_filter[2],
+             AREA.NAME %in% input$quartier_filter)
+  })
+  ## KPIs
+  
+  output$kpi_viol_value <- renderText({
+    nb_delits <- nrow(filtered_data_viol())
+    paste( nb_delits, " actes")
+  })
+  
+  output$kpi_age_viol_value <- renderText({
+    mean_age <- mean(filtered_data_viol()$Vict.Age, na.rm = TRUE)
+    paste(round(mean_age, 1), " ans")
+  })
+  
+  ## Evolution courbe 
+  
+  
+  output$evo_viol_delits <- renderPlot({
+    ggplot(filtered_data_viol(), aes(x = Date.Rptd)) +
+      geom_histogram(binwidth = 30, fill = "grey", color = "black", alpha = 0.7) +
+      labs(x = "Date",
+           y = "Nombre de delits") +
+      scale_x_date(date_labels = "%b %Y", date_breaks = "3 months") +
+      theme_minimal() +
+      theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  })
+  
+  ## Heatmap
+  
+  center_lat_v <- reactive({median(filtered_data_viol()$LAT)})
+  center_lon_v <- reactive({median(filtered_data_viol()$LON)})
+  
+  output$heatmap_viol <- renderLeaflet({
+    leaflet(data = filtered_data_viol()) %>%
+      addTiles()%>% 
+      addTiles() %>%
+      addHeatmap(
+        lat = ~LAT,
+        lng = ~LON,
+        blur = 20,
+        max = 0.2,
+        radius = 10
+      )    %>%
+      setView(lat = center_lat_v(), lng = center_lon_v(), zoom = 9)
+  })
+
 }
 
 shinyApp(ui=ui , server=server)
