@@ -13,7 +13,7 @@ Plus précisement, vous aurez la possibilité d'y retrouver différntes statisti
     - kssk
 - 2 
 - 3
-![logiciel](https://imgur.com/a/nGIUb4A))
+![logiciel](https://i.imgur.com/c23eKhO.png))
 
 
 Axel said :
