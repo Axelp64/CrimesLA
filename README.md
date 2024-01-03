@@ -47,12 +47,10 @@ Si vous souhaitez utiliser cette data visualisation voici comment procéder :
 
 
 
-Axel said :
-
-> Le monde est grand
+### Code R créé 
 
 `code`
 
-```python
+```r
 2+2
 ```
