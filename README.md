@@ -1,9 +1,10 @@
 # Web App - Crimes LA 
 
 ## Application Web - Data Visualisation 
-### CRimes LA
+### Crimes LA
 
-*dedede*
+Cette Application Web offre une visualisation sur un ensemble de crimes et délits commis entre 2021 et 2023 dans la ville de Los Angeles. 
+Plus précisement, vous aurez la possibilité d'y retrouver différntes statistiques et visuels sur les homicides, Viols, Braquages et Cambriolages qui y ont été commis.
 
 **njenxhbdhcbd**
 
@@ -12,7 +13,7 @@
     - kssk
 - 2 
 - 3
-![logiciel](C:\Users\axelp\OneDrive\Bureau\IA School\Info\Git\www\RStudio-Logo.png)
+![logiciel](https://imgur.com/a/nGIUb4A))
 
 
 Axel said :
