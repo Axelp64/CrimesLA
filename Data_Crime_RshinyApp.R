@@ -63,9 +63,9 @@ ui <- fluidPage(
         tabPanel("Tous les delits/crimes",
                  
                  fluidRow(
-                  #Ligne KPI
+                   #Ligne KPI
                    column(width = 2
-                          ),
+                   ),
                    column(width = 5,
                           br(),
                           box(title = tags$h4("Nombre de delits :"),
@@ -99,6 +99,9 @@ ui <- fluidPage(
                             h4(em("Localisation des delits"), align = "center")),
                           leafletOutput("heatmap_all")      
                    ),
+                   
+                   
+                   
                    # Ligne Info
                    
                    column(width = 12,
@@ -109,11 +112,11 @@ ui <- fluidPage(
                               a(href="https://data.lacity.org/Public-Safety/Crime-Data-from-2020-to-Present/2nrs-mtv8", "DataSet")), align = "center"),
                           div(
                             p(em("Application web concue par "), em(strong("Penacq Axel"))), align = "center")
-                          )
-                          
                    )
                    
-                 ),
+                 )
+                 
+        ),
         
         # Second onglet 
         
@@ -337,27 +340,24 @@ ui <- fluidPage(
                    )
                    
                  )
+        ), 
+        tabPanel("Apercu des donnees",
                  
-        )
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+                 column(width = 12,
+                        br(),
+                        div(
+                          h4(em("Data"), align = "center")),
+                        tableOutput("apercu_all")))
         
       )
       
+      
     )
+    
     
   )
 )
+
 
 
 
@@ -430,7 +430,11 @@ server <- function(input, output){
       setView(lat = center_lat_a(), lng = center_lon_a(), zoom = 9)
   })
   
+  # Apercu des donnees (10 premieres lignes )
   
+  output$apercu_all <- renderTable({
+    head(filtered_data_all(), 10)
+  })
   
   
   ## Braquages
@@ -487,7 +491,7 @@ server <- function(input, output){
       )    %>%
       setView(lat = center_lat_b(), lng = center_lon_b(), zoom = 9)
   })
-
+  
   
   
   
@@ -660,7 +664,7 @@ server <- function(input, output){
       )    %>%
       setView(lat = center_lat_v(), lng = center_lon_v(), zoom = 9)
   })
-
+  
 }
 
 shinyApp(ui=ui , server=server)

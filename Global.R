@@ -16,7 +16,7 @@ data <- data %>%
 
 data <- subset(data, !is.na(delit))
 
-data <- subset(data, Vict.Age >= 0)
+data <- subset(data, Vict.Age > 0)
 
 data <- mutate(data, Vict.Sex = ifelse(Vict.Sex == "H", "M", Vict.Sex))
 
