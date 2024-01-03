@@ -15,8 +15,12 @@ Voici un aperçu du l'application web :
 Si vous souhaitez utiliser cette data visualisation voici comment procéder :
 
 1. Téléchargez l'ensemble de mon dossier GitHub "CrimesLA" sur votre ordinateur personnel.
-2. Ouvrez le dossier téléchargé et lancez le fichier nommez *Data_Crime_RshinyApp* 
-
+2. Rendez-vous dans le dossier téléchargé, créez un dossier "DATA" et installez les données les données via le lien suivant [Data](https://data.lacity.org/Public-Safety/Crime-Data-from-2020-to-Present/2nrs-mtv8) et placez dans votre dossier DATA.
+3. Ouvrez le dossier téléchargé et lancez le fichier nommez *Data_Crime_RshinyApp.R* 
+4. Une fois arrivé sur R, rendez vous sur la partie inférieure droite de la fênetre, dans l'onglet *files*. Remplacez le Répertoir directeur de votre R par le dossier "CrimesLA"
+5. *Étape facultative* : Ouvrez maintenant le fichier *Packages.R*. Si vous n'avez pas déjà téléchargé les library utilisées, installez les et enregistrez le fichier.
+6. Sur le fichier *Data_Crime_RshinyApp.R*, cliquez sur "Run App".
+7. Le tour est joué ! Vous pouvez maintenant profiter de l'ensemble des fonctionnalités de l'application web :)
 
 ### Contenu et fonctionnalité
 
