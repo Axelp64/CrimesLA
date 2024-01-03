@@ -8,15 +8,30 @@ Plus précisement, vous aurez la possibilité d'y retrouver différntes statisti
 
 Voici un aperçu du l'application web :
 
-![logiciel](https://i.imgur.com/c23eKhO.png))
+![Aperçu](https://i.imgur.com/c23eKhO.png)
 
-**njenxhbdhcbd**
+#### Contenu et fonctionnalité
 
-- 1
-    - bgsb
-    - kssk
-- 2 
-- 3
+**Filtres**
+- Age de la victime
+- Sexe de la victime 
+- Période 
+- Quartiers
+
+**Onglets**
+- Tous les Délits / Crimes
+- Braquages
+- Cambriolages
+- Homicides
+- Viols
+- Aperçu des données
+
+**KPIs et visualisations**
+- Nombres de délits / crimes
+- Moyenne d'âge des victimes
+- Graphique en barre offrant une vision sur l'évolution du nombre d'actes
+- HeatMap permettant de visualiser les quartiers dans lesquelles le plus d'actes sont commis
+
 
 
 
