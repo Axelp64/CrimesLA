@@ -1,8 +1,8 @@
 # Web App - Crimes LA 
 
 ## Application Web - Data Visualisation 
-### Crimes LA
 
+### Présentation 
 Cette Application Web offre une visualisation sur un ensemble de crimes et délits commis entre 2021 et 2023 dans la ville de Los Angeles. 
 Plus précisement, vous aurez la possibilité d'y retrouver différntes statistiques et visuels sur les homicides, Viols, Braquages et Cambriolages qui y ont été commis.
 
@@ -10,7 +10,15 @@ Voici un aperçu du l'application web :
 
 ![Aperçu](https://i.imgur.com/c23eKhO.png)
 
-#### Contenu et fonctionnalité
+### Utilisation de l'application 
+
+Si vous souhaitez utiliser cette data visualisation voici comment procéder :
+
+1. Téléchargez l'ensemble de mon dossier GitHub "CrimesLA" sur votre ordinateur personnel.
+2. Ouvrez le dossier téléchargé et lancez le fichier nommez *Data_Crime_RshinyApp* 
+
+
+### Contenu et fonctionnalité
 
 **Filtres**
 - Age de la victime
