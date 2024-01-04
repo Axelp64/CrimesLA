@@ -1,362 +1,340 @@
 source(file = "Global.R")
 source(file = "Packages.R")
 
-
-
-
-
-
-ui <- fluidPage(
+ui <- dashboardPage(
   
   #Titre de l'appli
   
-  div(
-    h2("Crimes et delits a Los Angeles", align = "center"),
-    windowTitle = "Crimes"
+  dashboardHeader(title = "Crimes à Los Angeles"),
+  
+  dashboardSidebar(
+    
+    
+    #Ensemble des filtres
+    div(
+      h3("Filtres"), align = "center"),
+    br(),
+    br(),
+    sliderInput("age_filter", label="Age de la victime :",
+                min=min(data$Vict.Age, na.rm = T),
+                max=max(data$Vict.Age, na.rm = T),
+                value = c(min(data$Vict.Age, na.rm = T),
+                          max(data$Vict.Age, na.rm = T))
+                
+    ),
+    br(),
+    br(),
+    checkboxGroupInput("sexe_filter", label = "Sexe de la victime : ",
+                       choices = c("Femme"="F","Homme"="M","Autre"="X"),
+                       selected = c("F","M","X")
+    ),
+    br(),
+    br(),
+    dateRangeInput("periode_filter", label = "Selectionnez la periode : ",
+                   start = min(data$Date.Rptd, na.rm = T),
+                   end   = max(data$Date.Rptd, na.rm = T)
+                   
+                   
+    ),
+    br(),
+    br(),
+    checkboxGroupInput("quartier_filter", label = "Selectionnez les quartiers : ",
+                       choices = unique(data$AREA.NAME),
+                       selected = unique(data$AREA.NAME))
+    
+    
+    
   ),
   
-  sidebarLayout(
-    
-    sidebarPanel(
+  dashboardBody(
+    tabsetPanel(
       
-      #Ensemble des filtres
-      div(
-        h3("Filtres"), align = "center"),
-      br(),
-      br(),
-      sliderInput("age_filter", label="Age de la victime :",
-                  min=min(data$Vict.Age, na.rm = T),
-                  max=max(data$Vict.Age, na.rm = T),
-                  value = c(min(data$Vict.Age, na.rm = T),
-                            max(data$Vict.Age, na.rm = T))
-                  
-      ),
-      br(),
-      br(),
-      checkboxGroupInput("sexe_filter", label = "Sexe de la victime : ",
-                         choices = c("Femme"="F","Homme"="M","Autre"="X"),
-                         selected = c("F","M","X")
-      ),
-      br(),
-      br(),
-      dateRangeInput("periode_filter", label = "Selectionnez la periode : ",
-                     start = min(data$Date.Rptd, na.rm = T),
-                     end   = max(data$Date.Rptd, na.rm = T)
-                     
-                     
-      ),
-      br(),
-      br(),
-      checkboxGroupInput("quartier_filter", label = "Selectionnez les quartiers : ",
-                         choices = unique(data$AREA.NAME),
-                         selected = unique(data$AREA.NAME))
+      #Creation des onglets du rapport
       
-      
-      
-    ),
-    
-    mainPanel(
-      tabsetPanel(
-        
-        #Creation des onglets du rapport
-        
-        tabPanel("Tous les delits/crimes",
-                 
-                 fluidRow(
-                   #Ligne KPI
-                   column(width = 2
-                   ),
-                   column(width = 5,
-                          br(),
-                          box(title = tags$h4("Nombre de delits :"),
-                              width = 20,
-                              height = 100,
-                              solidHeader = T,
-                              status = "info",
-                              h4(strong(textOutput("kpi_all_value"))))
-                   ),
-                   column(width = 5,
-                          br(),
-                          box(
-                            title = tags$h4("Moyenne d'age des victimes :"),
-                            width = 20,
-                            height = 100,
-                            solidHeader = TRUE,
-                            status = "info",
-                            h4(strong(textOutput("kpi_age_all_value")))
-                          )
-                   ),
-                   #Ligne Graphiques
-                   column(width = 6,
-                          br(),
-                          div(
-                            h4(em("Evolution du nombre de delits"), align = "center")),
-                          plotOutput("evo_all_delits")
-                   ),
-                   column(width = 6,
-                          br(),
-                          div(
-                            h4(em("Localisation des delits"), align = "center")),
-                          leafletOutput("heatmap_all")      
-                   ),
-                   
-                   
-                   
-                   # Ligne Info
-                   
-                   column(width = 12,
+      tabPanel("Tous les delits/crimes",
+               
+               fluidRow(
+                 #Ligne KPI
+                 column(width = 2
+                 ),
+                 column(width = 5,
+                        br(),
+                        box(title = tags$h4("Nombre de delits"),
+                            solidHeader = T,
+                            status = "primary",
+                            h4(strong(textOutput("kpi_all_value")))
+                        )),
+                 column(width = 5,
+                        br(),
+                        box(
+                          title = tags$h4("Moyenne d'age des victimes"),
+                          width = 8,
+                          solidHeader = T,
+                          status = "primary",
+                          h4(strong(textOutput("kpi_age_all_value"))),
                           
-                          br(),
-                          div(
-                            p("Pour avoir acces au jeu de donnees complet, suivez le lien suivant :", 
-                              a(href="https://data.lacity.org/Public-Safety/Crime-Data-from-2020-to-Present/2nrs-mtv8", "DataSet")), align = "center"),
-                          div(
-                            p(em("Application web concue par "), em(strong("Penacq Axel"))), align = "center")
-                   )
-                   
-                 )
-                 
-        ),
-        
-        # Second onglet 
-        
-        tabPanel("Braquages",
-                 
-                 fluidRow(
-                   #Ligne KPI
-                   column(width = 2
-                   ),
-                   column(width = 5,
-                          br(),
-                          box(title = tags$h4("Nombre de braquages :"),
-                              width = 20,
-                              height = 100,
-                              solidHeader = T,
-                              status = "info",
-                              h4(strong(textOutput("kpi_braquage_value"))))
-                   ),
-                   column(width = 5,
-                          br(),
-                          box(
-                            title = tags$h4("Moyenne d'age des victimes :"),
-                            width = 20,
-                            height = 100,
-                            solidHeader = TRUE,
-                            status = "info",
-                            h4(strong(textOutput("kpi_age_braquage_value")))
-                          )
-                   ),
-                   #Ligne Graphiques
-                   column(width = 6,
-                          br(),
-                          div(
-                            h4(em("Evolution du nombre de bracages"), align = "center")),
-                          plotOutput("evo_braquage_delits")
-                   ),
-                   column(width = 6,
-                          br(),
-                          div(
-                            h4(em("Localisation des braquages"), align = "center")),
-                          leafletOutput("heatmap_braquage")      
-                   ),
-                   # Ligne Info
-                   
-                   column(width = 12,
-                          
-                          br(),
-                          div(
-                            p("Pour avoir acces au jeu de donnees complet, suivez le lien suivant :", 
-                              a(href="https://data.lacity.org/Public-Safety/Crime-Data-from-2020-to-Present/2nrs-mtv8", "DataSet")), align = "center"),
-                          div(
-                            p(em("Application web concue par "), em(strong("Penacq Axel"))), align = "center")
-                   )
-                   
-                 )
-                 
-        ),
-        
-        # troisieme onglet 
-        
-        tabPanel("Cambriolages",
-                 fluidRow(
-                   #Ligne KPI
-                   column(width = 2
-                   ),
-                   column(width = 5,
-                          br(),
-                          box(title = tags$h4("Nombre de cambriolages :"),
-                              width = 20,
-                              height = 100,
-                              solidHeader = T,
-                              status = "info",
-                              h4(strong(textOutput("kpi_cambri_value"))))
-                   ),
-                   column(width = 5,
-                          br(),
-                          box(
-                            title = tags$h4("Moyenne d'age des victimes :"),
-                            width = 20,
-                            height = 100,
-                            solidHeader = TRUE,
-                            status = "info",
-                            h4(strong(textOutput("kpi_age_cambri_value")))
-                          )
-                   ),
-                   #Ligne Graphiques
-                   column(width = 6,
-                          br(),
-                          div(
-                            h4(em("Evolution du nombre de cambriolages"), align = "center")),
-                          plotOutput("evo_cambri_delits")
-                   ),
-                   column(width = 6,
-                          br(),
-                          div(
-                            h4(em("Localisation des cambriolages"), align = "center")),
-                          leafletOutput("heatmap_cambri")      
-                   ),
-                   # Ligne Info
-                   
-                   column(width = 12,
-                          
-                          br(),
-                          div(
-                            p("Pour avoir acces au jeu de donnees complet, suivez le lien suivant :", 
-                              a(href="https://data.lacity.org/Public-Safety/Crime-Data-from-2020-to-Present/2nrs-mtv8", "DataSet")), align = "center"),
-                          div(
-                            p(em("Application web concue par "), em(strong("Penacq Axel"))), align = "center")
-                   )
-                   
-                 )
-                 
-        ),
-        
-        # Quatrieme onglet 
-        
-        tabPanel("Homicides",
-                 fluidRow(
-                   #Ligne KPI
-                   column(width = 2
-                   ),
-                   column(width = 5,
-                          br(),
-                          box(title = tags$h4("Nombre d'homicides :"),
-                              width = 20,
-                              height = 100,
-                              solidHeader = T,
-                              status = "info",
-                              h4(strong(textOutput("kpi_homi_value"))))
-                   ),
-                   column(width = 5,
-                          br(),
-                          box(
-                            title = tags$h4("Moyenne d'age des victimes :"),
-                            width = 20,
-                            height = 100,
-                            solidHeader = TRUE,
-                            status = "info",
-                            h4(strong(textOutput("kpi_age_homi_value")))
-                          )
-                   ),
-                   #Ligne Graphiques
-                   column(width = 6,
-                          br(),
-                          div(
-                            h4(em("Evolution du nombre d'e delits'homicides"), align = "center")),
-                          plotOutput("evo_homi_delits")
-                   ),
-                   column(width = 6,
-                          br(),
-                          div(
-                            h4(em("Localisation des homicides"), align = "center")),
-                          leafletOutput("heatmap_homi")      
-                   ),
-                   # Ligne Info
-                   
-                   column(width = 12,
-                          
-                          br(),
-                          div(
-                            p("Pour avoir acces au jeu de donnees complet, suivez le lien suivant :", 
-                              a(href="https://data.lacity.org/Public-Safety/Crime-Data-from-2020-to-Present/2nrs-mtv8", "DataSet")), align = "center"),
-                          div(
-                            p(em("Application web concue par "), em(strong("Penacq Axel"))), align = "center")
-                   )
-                   
-                 )
-                 
-        ),
-        
-        # Dernier onglet 
-        
-        tabPanel("Viols",
-                 fluidRow(
-                   #Ligne KPI
-                   column(width = 2
-                   ),
-                   column(width = 5,
-                          br(),
-                          box(title = tags$h4("Nombre de viols :"),
-                              width = 20,
-                              height = 100,
-                              solidHeader = T,
-                              status = "info",
-                              h4(strong(textOutput("kpi_viol_value"))))
-                   ),
-                   column(width = 5,
-                          br(),
-                          box(
-                            title = tags$h4("Moyenne d'age des victimes :"),
-                            width = 20,
-                            height = 100,
-                            solidHeader = TRUE,
-                            status = "info",
-                            h4(strong(textOutput("kpi_age_viol_value")))
-                          )
-                   ),
-                   #Ligne Graphiques
-                   column(width = 6,
-                          br(),
-                          div(
-                            h4(em("Evolution du nombre de viols"), align = "center")),
-                          plotOutput("evo_viol_delits")
-                   ),
-                   column(width = 6,
-                          br(),
-                          div(
-                            h4(em("Localisation des viols"), align = "center")),
-                          leafletOutput("heatmap_viol")      
-                   ),
-                   # Ligne Info
-                   
-                   column(width = 12,
-                          
-                          br(),
-                          div(
-                            p("Pour avoir acces au jeu de donnees complet, suivez le lien suivant :", 
-                              a(href="https://data.lacity.org/Public-Safety/Crime-Data-from-2020-to-Present/2nrs-mtv8", "DataSet")), align = "center"),
-                          div(
-                            p(em("Application web concue par "), em(strong("Penacq Axel"))), align = "center")
-                   )
-                   
-                 )
-        ), 
-        tabPanel("Apercu des donnees",
-                 
-                 column(width = 12,
+                        )
+                 ),
+                 #Ligne Graphiques
+                 column(width = 6,
                         br(),
                         div(
-                          h4(em("Data"), align = "center")),
-                        tableOutput("apercu_all")))
-        
-      )
+                          h4(em("Evolution du nombre de delits"), align = "center")),
+                        plotOutput("evo_all_delits")
+                 ),
+                 column(width = 6,
+                        br(),
+                        div(
+                          h4(em("Localisation des delits"), align = "center")),
+                        leafletOutput("heatmap_all")      
+                 ),
+                 
+                 
+                 
+                 # Ligne Info
+                 
+                 column(width = 12,
+                        
+                        br(),
+                        div(
+                          p("Pour avoir acces au jeu de donnees complet, suivez le lien suivant :", 
+                            a(href="https://data.lacity.org/Public-Safety/Crime-Data-from-2020-to-Present/2nrs-mtv8", "DataSet")), align = "center"),
+                        div(
+                          p(em("Application web concue par "), em(strong("Penacq Axel"))), align = "center")
+                 )
+                 
+               )
+               
+      ),
       
+      # Second onglet 
+      
+      tabPanel("Braquages",
+               
+               fluidRow(
+                 #Ligne KPI
+                 column(width = 2
+                 ),
+                 column(width = 5,
+                        br(),
+                        box(title = tags$h4("Nombre de braquages"),
+                            solidHeader = T,
+                            status = "primary",
+                            h4(strong(textOutput("kpi_braquage_value")))
+                        )),
+                 column(width = 5,
+                        br(),
+                        box(
+                          title = tags$h4("Moyenne d'age des victimes"),
+                          width = 8,
+                          solidHeader = T,
+                          status = "primary",
+                          h4(strong(textOutput("kpi_age_braquage_value")))
+                        )
+                 ),
+                 #Ligne Graphiques
+                 column(width = 6,
+                        br(),
+                        div(
+                          h4(em("Evolution du nombre de bracages"), align = "center")),
+                        plotOutput("evo_braquage_delits")
+                 ),
+                 column(width = 6,
+                        br(),
+                        div(
+                          h4(em("Localisation des braquages"), align = "center")),
+                        leafletOutput("heatmap_braquage")      
+                 ),
+                 # Ligne Info
+                 
+                 column(width = 12,
+                        
+                        br(),
+                        div(
+                          p("Pour avoir acces au jeu de donnees complet, suivez le lien suivant :", 
+                            a(href="https://data.lacity.org/Public-Safety/Crime-Data-from-2020-to-Present/2nrs-mtv8", "DataSet")), align = "center"),
+                        div(
+                          p(em("Application web concue par "), em(strong("Penacq Axel"))), align = "center")
+                 )
+                 
+               )
+               
+      ),
+      
+      # troisieme onglet 
+      
+      tabPanel("Cambriolages",
+               fluidRow(
+                 #Ligne KPI
+                 column(width = 2
+                 ),
+                 column(width = 5,
+                        br(),
+                        box(title = tags$h4("Nombre de cambriolages"),
+                            solidHeader = T,
+                            status = "primary",
+                            h4(strong(textOutput("kpi_cambri_value"))))
+                 ),
+                 column(width = 5,
+                        br(),
+                        box(
+                          title = tags$h4("Moyenne d'age des victimes"),
+                          width = 8,
+                          solidHeader = T,
+                          status = "primary",
+                          h4(strong(textOutput("kpi_age_cambri_value")))
+                        )
+                 ),
+                 #Ligne Graphiques
+                 column(width = 6,
+                        br(),
+                        div(
+                          h4(em("Evolution du nombre de cambriolages"), align = "center")),
+                        plotOutput("evo_cambri_delits")
+                 ),
+                 column(width = 6,
+                        br(),
+                        div(
+                          h4(em("Localisation des cambriolages"), align = "center")),
+                        leafletOutput("heatmap_cambri")      
+                 ),
+                 # Ligne Info
+                 
+                 column(width = 12,
+                        
+                        br(),
+                        div(
+                          p("Pour avoir acces au jeu de donnees complet, suivez le lien suivant :", 
+                            a(href="https://data.lacity.org/Public-Safety/Crime-Data-from-2020-to-Present/2nrs-mtv8", "DataSet")), align = "center"),
+                        div(
+                          p(em("Application web concue par "), em(strong("Penacq Axel"))), align = "center")
+                 )
+                 
+               )
+               
+      ),
+      
+      # Quatrieme onglet 
+      
+      tabPanel("Homicides",
+               fluidRow(
+                 #Ligne KPI
+                 column(width = 2
+                 ),
+                 column(width = 5,
+                        br(),
+                        box(title = tags$h4("Nombre d'homicides"),
+                            solidHeader = T,
+                            status = "primary",
+                            h4(strong(textOutput("kpi_homi_value"))))
+                 ),
+                 column(width = 5,
+                        br(),
+                        box(
+                          title = tags$h4("Moyenne d'age des victimes"),
+                          width = 8,
+                          solidHeader = T,
+                          status = "primary",
+                          h4(strong(textOutput("kpi_age_homi_value")))
+                        )
+                 ),
+                 #Ligne Graphiques
+                 column(width = 6,
+                        br(),
+                        div(
+                          h4(em("Evolution du nombre d'e delits'homicides"), align = "center")),
+                        plotOutput("evo_homi_delits")
+                 ),
+                 column(width = 6,
+                        br(),
+                        div(
+                          h4(em("Localisation des homicides"), align = "center")),
+                        leafletOutput("heatmap_homi")      
+                 ),
+                 # Ligne Info
+                 
+                 column(width = 12,
+                        
+                        br(),
+                        div(
+                          p("Pour avoir acces au jeu de donnees complet, suivez le lien suivant :", 
+                            a(href="https://data.lacity.org/Public-Safety/Crime-Data-from-2020-to-Present/2nrs-mtv8", "DataSet")), align = "center"),
+                        div(
+                          p(em("Application web concue par "), em(strong("Penacq Axel"))), align = "center")
+                 )
+                 
+               )
+               
+      ),
+      
+      # Dernier onglet 
+      
+      tabPanel("Viols",
+               fluidRow(
+                 #Ligne KPI
+                 column(width = 2
+                 ),
+                 column(width = 5,
+                        br(),
+                        box(title = tags$h4("Nombre de viols"),
+                            solidHeader = T,
+                            status = "primary",
+                            h4(strong(textOutput("kpi_viol_value"))))
+                 ),
+                 column(width = 5,
+                        br(),
+                        box(
+                          title = tags$h4("Moyenne d'age des victimes"),
+                          width = 8,
+                          solidHeader = T,
+                          status = "primary",
+                          h4(strong(textOutput("kpi_age_viol_value")))
+                        )
+                 ),
+                 #Ligne Graphiques
+                 column(width = 6,
+                        br(),
+                        div(
+                          h4(em("Evolution du nombre de viols"), align = "center")),
+                        plotOutput("evo_viol_delits")
+                 ),
+                 column(width = 6,
+                        br(),
+                        div(
+                          h4(em("Localisation des viols"), align = "center")),
+                        leafletOutput("heatmap_viol")      
+                 ),
+                 # Ligne Info
+                 
+                 column(width = 12,
+                        
+                        br(),
+                        div(
+                          p("Pour avoir acces au jeu de donnees complet, suivez le lien suivant :", 
+                            a(href="https://data.lacity.org/Public-Safety/Crime-Data-from-2020-to-Present/2nrs-mtv8", "DataSet")), align = "center"),
+                        div(
+                          p(em("Application web concue par "), em(strong("Penacq Axel"))), align = "center")
+                 )
+                 
+               )
+      ), 
+      tabPanel("Apercu des donnees",
+               
+               column(width = 12,
+                      br(),
+                      div(
+                        h4(em("Data"), align = "center")),
+                      tableOutput("apercu_all")))
       
     )
     
     
   )
+  
+  
 )
+
+
 
 
 
