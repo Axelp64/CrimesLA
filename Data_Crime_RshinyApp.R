@@ -51,7 +51,7 @@ ui <- dashboardPage(
       
       #Creation des onglets du rapport
       
-      tabPanel("Tous les delits/crimes",
+      tabPanel(" Tous les delits/crimes", icon = icon("handcuffs", lib = "font-awesome"),
                
                fluidRow(
                  #Ligne KPI
@@ -109,7 +109,7 @@ ui <- dashboardPage(
       
       # Second onglet 
       
-      tabPanel("Braquages",
+      tabPanel("Braquages", icon = icon("building-columns", lib = "font-awesome"),
                
                fluidRow(
                  #Ligne KPI
@@ -163,7 +163,7 @@ ui <- dashboardPage(
       
       # troisieme onglet 
       
-      tabPanel("Cambriolages",
+      tabPanel("Cambriolages",  icon = icon("user-secret", lib = "font-awesome"),
                fluidRow(
                  #Ligne KPI
                  column(width = 2
@@ -216,7 +216,7 @@ ui <- dashboardPage(
       
       # Quatrieme onglet 
       
-      tabPanel("Homicides",
+      tabPanel("Homicides",  icon = icon("gun", lib = "font-awesome"),
                fluidRow(
                  #Ligne KPI
                  column(width = 2
@@ -269,7 +269,7 @@ ui <- dashboardPage(
       
       # Dernier onglet 
       
-      tabPanel("Viols",
+      tabPanel("Viols", icon = icon("person-burst", lib = "font-awesome"),
                fluidRow(
                  #Ligne KPI
                  column(width = 2
@@ -318,7 +318,7 @@ ui <- dashboardPage(
                  
                )
       ), 
-      tabPanel("Apercu des donnees",
+      tabPanel("Apercu des donnees", icon = icon("database", lib = "font-awesome"),
                
                column(width = 12,
                       br(),
